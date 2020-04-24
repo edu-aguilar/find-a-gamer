@@ -4,7 +4,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
-  console.log('create new Event')
+  console.log('create new Event: ', event)
   
   return {
     statusCode: 201,
