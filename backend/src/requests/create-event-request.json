@@ -1,26 +1,26 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "event",
-    "type": "object",
-    "properties": {
-      "title": {
-        "type": "string"
-      },
-      "startTime": {
-        "type": "string"
-      },
-      "endTime": {
-        "type": "string"
-      },
-      "gameId": {
-        "type": "string"
-      }
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "event",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
     },
-    "required": [
-      "title",
-      "startTime",
-      "endTime",
-      "gameId"
-    ],
-    "additionalProperties": false
-  }
+    "startTime": {
+      "type": "string"
+    },
+    "endTime": {
+      "type": "string"
+    },
+    "gameId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "startTime",
+    "endTime",
+    "gameId"
+  ],
+  "additionalProperties": false
+}
