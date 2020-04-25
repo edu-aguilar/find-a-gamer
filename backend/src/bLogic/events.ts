@@ -28,7 +28,12 @@ export async function getEvents(queryParams: any = {}) {
   if (queryParams.gameId) {
     return eventsAccess.getEventsByGameId(queryParams.gameId)
   } else {
-    Promise.reject(null)
+    Promise.reject('operation not allowed')
     // maybe use here .scan with pagination ????
   }
+}
+
+export async function getEventsByOwnerId(ownerId: string) {
+
+  return eventsAccess.getEventsByOwnerId(ownerId)
 }
