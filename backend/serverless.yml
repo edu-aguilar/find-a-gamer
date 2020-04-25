@@ -26,7 +26,8 @@ provider:
 
   environment:
     EVENTS_TABLE: Events-${self:provider.stage}
-    EVENTS_GAME_ID_INDEX: EventsGameIdIndex
+    EVENTS_GAME_ID_INDEX: Events_GameIdIndex
+    EVENTS_OWNER_ID_INDEX: Events_OwnerIdIndex
 
 
 custom:
@@ -78,6 +79,19 @@ functions:
         Action:
           - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}/index/${self:provider.environment.EVENTS_GAME_ID_INDEX}
+  
+  GetOwnerEvents:
+    handler: src/lambda/http/getOwnerEvents.handler
+    events:
+      - http:
+          method: get
+          path: users/{ownerId}/events
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}/index/${self:provider.environment.EVENTS_OWNER_ID_INDEX}
 
 
 resources:
@@ -102,6 +116,8 @@ resources:
           AttributeType: S
         - AttributeName: gameId
           AttributeType: S
+        - AttributeName: ownerId
+          AttributeType: S
       KeySchema:
         - AttributeName: eventId
           KeyType: HASH
@@ -113,6 +129,14 @@ resources:
         - IndexName: ${self:provider.environment.EVENTS_GAME_ID_INDEX}
           KeySchema:
           - AttributeName: gameId
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: ${self:provider.environment.EVENTS_OWNER_ID_INDEX}
+          KeySchema:
+          - AttributeName: ownerId
             KeyType: HASH
           - AttributeName: createdAt
             KeyType: RANGE
