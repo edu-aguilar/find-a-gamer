@@ -33,29 +33,29 @@ custom:
         version: v0.0.1
         title: Serverless find-a-gamer API
         description: find-a-gamer Serverless app
-#     models:
-#       - name: CreateEventRequest
-#         contentType: application/json
-#         schema: ${file(src/requests/create-event-request.json)}
+    models:
+      - name: CreateEventRequest
+        contentType: application/json
+        schema: ${file(src/requests/create-event-request.json)}
 #       - name: UpdateEventRequest
 #         contentType: application/json
 #         schema: ${file(src/requests/update-event-request.json)}
 
 functions:
   
-  CreateTodo:
+  CreateEvent:
     handler: src/lambda/http/createEvent.handler
     events:
       - http:
           method: post
           path: events
           cors: true
-          # reqValidatorName: RequestBodyValidator
+          reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new Event
             description: Create a new Event
-            # requestModels:
-            #   'application/json': CreateTodoRequest
+            requestModels:
+              'application/json': CreateEventRequest
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -65,6 +65,16 @@ functions:
 
 resources:
  Resources:
+
+  RequestBodyValidator:
+    Type: AWS::ApiGateway::RequestValidator
+    Properties:
+      Name: 'request-body-validator'
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      ValidateRequestBody: true
+      ValidateRequestParameters: false
+
   EventsDynamoDbTable:
     Type: AWS::DynamoDB::Table
     Properties:
