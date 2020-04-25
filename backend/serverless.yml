@@ -5,6 +5,7 @@ service: find-a-gamer
 # app and org for use with dashboard.serverless.com
 app: find-a-gamer
 
+
 plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
@@ -14,6 +15,7 @@ plugins:
 
 package:
   individually: true
+
 
 provider:
   name: aws
@@ -25,6 +27,7 @@ provider:
   environment:
     EVENTS_TABLE: Events-${self:provider.stage}
     EVENTS_GAME_ID_INDEX: EventsGameIdIndex
+
 
 custom:
   documentation:
@@ -40,6 +43,7 @@ custom:
 #       - name: UpdateEventRequest
 #         contentType: application/json
 #         schema: ${file(src/requests/update-event-request.json)}
+
 
 functions:
   
@@ -61,6 +65,19 @@ functions:
         Action:
           - dynamoDB:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
+  
+  GetEvents:
+    handler: src/lambda/http/getEvents.handler
+    events:
+      - http:
+          method: get
+          path: events
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}/index/${self:provider.environment.EVENTS_GAME_ID_INDEX}
 
 
 resources:

@@ -22,3 +22,13 @@ export async function createEvent(event: CreateEventRequest, ownerId: string) {
 
   return eventsAccess.createEvent(newEvent);
 }
+
+export async function getEvents(queryParams: any = {}) {
+
+  if (queryParams.gameId) {
+    return eventsAccess.getEventsByGameId(queryParams.gameId)
+  } else {
+    Promise.reject(null)
+    // maybe use here .scan with pagination ????
+  }
+}
