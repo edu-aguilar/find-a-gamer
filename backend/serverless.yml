@@ -152,6 +152,19 @@ functions:
           - dynamoDB:DeleteItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
 
+  GetGames:
+    handler: src/lambda/http/getGames.handler
+    events:
+      - http:
+          method: get
+          path: games
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Scan
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GAMES_TABLE}
+
 
 resources:
  Resources:
