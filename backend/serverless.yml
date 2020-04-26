@@ -134,6 +134,22 @@ functions:
         Action:
           - dynamoDB:UpdateItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
+    
+  DeleteEvent:
+    handler: src/lambda/http/deleteEvent.handler
+    events:
+      - http:
+          method: delete
+          path: events/{eventId}
+          cors: true
+          documentation:
+            summary: remove existing Event
+            description: remove existing Event
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamoDB:DeleteItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
 
 
 resources:

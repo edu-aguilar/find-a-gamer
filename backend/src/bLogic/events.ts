@@ -58,3 +58,8 @@ export async function updateEvent(eventId: string, ownerId: string, updateEventR
   // TODO: validate dates here!!
   return eventsAccess.updateEvent(eventId, ownerId, updateEventReq)
 }
+
+export async function deleteTodo(eventId: string, ownerId: string) {
+
+  return eventsAccess.deleteTodo(eventId, ownerId)
+}

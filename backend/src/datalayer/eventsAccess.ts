@@ -98,4 +98,14 @@ export class EventsAccess {
     return result.Attributes as Event
   }
 
+  async deleteTodo(eventId: string, ownerId: string) {
+    await this.docClient.delete({
+      TableName: this.eventsTable,
+      Key: {
+        'eventId': eventId,
+        'ownerId': ownerId
+      },
+    }).promise()
+  }
+
 }
