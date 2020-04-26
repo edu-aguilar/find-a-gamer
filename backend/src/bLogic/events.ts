@@ -6,6 +6,7 @@ import { CreateEventRequest } from '../requests/createEventRequest'
 import { EventsAccess } from '../datalayer/eventsAccess'
 import { CreateEventCommentRequest } from '../requests/createEventCommentRequest'
 import { UpdateEventRequest } from '../requests/updateEventRequest'
+import { generateSignedUrl } from '../datalayer/s3Access'
 
 const eventsAccess = new EventsAccess()
 
@@ -62,4 +63,16 @@ export async function updateEvent(eventId: string, ownerId: string, updateEventR
 export async function deleteTodo(eventId: string, ownerId: string) {
 
   return eventsAccess.deleteTodo(eventId, ownerId)
+}
+
+export function createSignedUrl(eventId: string) {
+  console.log(eventId)
+  
+  // check first if event exists
+  const imageId = generateRandomUUID()
+  const result = generateSignedUrl(imageId)
+
+  // update Existing event with result.imgUrl
+
+  return result.signedUrl
 }
