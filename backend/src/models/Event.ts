@@ -8,5 +8,6 @@ export interface Event {
   eventId: string,
   createdAt: string,
   ownerId: string,
-  comments: Comment[]
+  comments: Comment[],
+  image?: string
 }

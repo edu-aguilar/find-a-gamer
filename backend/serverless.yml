@@ -29,6 +29,7 @@ provider:
     EVENTS_GAME_ID_INDEX: Events_GameIdIndex
     EVENTS_OWNER_ID_INDEX: Events_OwnerIdIndex
     GAMES_TABLE: Games-${self:provider.stage}
+    EVENTS_IMAGES_S3_BUCKET: events-images-s3-${self:provider.stage}
 
 
 custom:
@@ -164,6 +165,23 @@ functions:
         Action:
           - dynamodb:Scan
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GAMES_TABLE}
+  
+  GenerateUploadUrl:
+    handler: src/lambda/http/generateUploadUrl.handler
+    events:
+      - http:
+          method: post
+          path: events/{eventId}/image
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamoDB:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
+      - Effect: Allow
+        Action:
+          - s3:PutObject
+        Resource: arn:aws:s3:::${self:provider.environment.EVENTS_IMAGES_S3_BUCKET}/*
 
 
 resources:
@@ -226,3 +244,36 @@ resources:
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
       TableName: ${self:provider.environment.GAMES_TABLE}
+
+  AttachmentsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${self:provider.environment.EVENTS_IMAGES_S3_BUCKET}
+      CorsConfiguration:
+        CorsRules:
+          -
+            AllowedOrigins:
+              - '*'
+            AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            MaxAge: 3000
+    
+    BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        PolicyDocument:
+          Id: MyPolicy
+          Version: "2012-10-17"
+          Statement:
+            - Sid: PublicReadForGetBucketObjects
+              Effect: Allow
+              Principal: '*'
+              Action: 's3:GetObject'
+              Resource: 'arn:aws:s3:::${self:provider.environment.EVENTS_IMAGES_S3_BUCKET}/*'
+        Bucket: !Ref AttachmentsBucket
