@@ -1,8 +1,10 @@
 import { v4 as generateRandomUUID } from 'uuid'
 
 import { Event } from './../models/Event'
+import { Comment } from '../models/Comment'
 import { CreateEventRequest } from '../requests/createEventRequest'
 import { EventsAccess } from '../datalayer/eventsAccess'
+import { CreateEventCommentRequest } from '../requests/createEventCommentRequest'
 
 const eventsAccess = new EventsAccess()
 
@@ -36,4 +38,16 @@ export async function getEvents(queryParams: any = {}) {
 export async function getEventsByOwnerId(ownerId: string) {
 
   return eventsAccess.getEventsByOwnerId(ownerId)
+}
+
+export async function addCommentToEvent(newEventCommentReq: CreateEventCommentRequest, userId: string, eventId: string) {
+
+  const newComment: Comment = {
+    ...newEventCommentReq,
+    userId,
+    createdAt: new Date().toISOString()
+  }
+  const event = await eventsAccess.getEventById(eventId)
+
+  return eventsAccess.addCommentToEvent(newComment, eventId, event.ownerId)
 }

@@ -41,6 +41,9 @@ custom:
       - name: CreateEventRequest
         contentType: application/json
         schema: ${file(src/requests/create-event-request.json)}
+      - name: CreateEventCommentRequest
+        contentType: application/json
+        schema: ${file(src/requests/create-event-comment-request.json)}
 #       - name: UpdateEventRequest
 #         contentType: application/json
 #         schema: ${file(src/requests/update-event-request.json)}
@@ -93,6 +96,26 @@ functions:
           - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}/index/${self:provider.environment.EVENTS_OWNER_ID_INDEX}
 
+  CreateEventComment:
+    handler: src/lambda/http/createEventComment.handler
+    events:
+      - http:
+          method: post
+          path: events/{eventId}/comments
+          cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new Comment to existing Event
+            description: Create a new Comment to existing Event
+            requestModels:
+              'application/json': CreateEventCommentRequest
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamoDB:UpdateItem
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
+
 
 resources:
  Resources:
@@ -121,7 +144,7 @@ resources:
       KeySchema:
         - AttributeName: eventId
           KeyType: HASH
-        - AttributeName: gameId
+        - AttributeName: ownerId
           KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
       TableName: ${self:provider.environment.EVENTS_TABLE}

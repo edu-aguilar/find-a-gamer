@@ -2,6 +2,7 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { DynamoDB } from 'aws-sdk'
 
 import { Event } from './../models/Event'
+import { Comment } from '../models/Comment'
 
 export class EventsAccess {
 
@@ -26,8 +27,8 @@ export class EventsAccess {
       IndexName : this.eventsTableByGameIndex,
       KeyConditionExpression: 'gameId = :gameId',
       ExpressionAttributeValues: {
-          ':gameId': gameId
-        }
+        ':gameId': gameId
+      }
     }).promise()
 
     const events = result.Items
@@ -40,12 +41,41 @@ export class EventsAccess {
       IndexName : this.eventsTableByOwnerIndex,
       KeyConditionExpression: 'ownerId = :ownerId',
       ExpressionAttributeValues: {
-          ':ownerId': ownerId
-        }
+        ':ownerId': ownerId
+      }
     }).promise()
 
     const events = result.Items
     return events as Event[]
+  }
+
+  async getEventById(eventId: string): Promise<Event> {
+    const result = await this.docClient.query({
+      TableName : this.eventsTable,
+      KeyConditionExpression: 'eventId = :eventId',
+      ExpressionAttributeValues: {
+          ':eventId': eventId
+      }
+    }).promise()
+
+    const event = result.Items[0]
+    return event as Event
+  }
+
+  async addCommentToEvent(comment: Comment, eventId: string, ownerId: string): Promise<Event> {
+
+    const result = await this.docClient.update({
+      TableName: this.eventsTable,
+      Key: {
+        'eventId': eventId,
+        'ownerId': ownerId
+      },
+      UpdateExpression: 'SET #commentsAttr = list_append(#commentsAttr, :newComment)',
+      ExpressionAttributeNames: { '#commentsAttr': 'comments' },
+      ExpressionAttributeValues: { ':newComment': [comment] }
+    }).promise()
+
+    return result.Attributes as Event
   }
 
 }
