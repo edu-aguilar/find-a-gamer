@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "serverless find a gamer backend ",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack:fix": "NODE_OPTIONS=--max_old_space_size=8192",
+    "deploy:dev": "npm run webpack:fix && serverless deploy"
   },
   "dependencies": {
     "@types/http-errors": "^1.6.1",
