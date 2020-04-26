@@ -3,6 +3,7 @@ import { DynamoDB } from 'aws-sdk'
 
 import { Event } from './../models/Event'
 import { Comment } from '../models/Comment'
+import { UpdateEventRequest } from '../requests/updateEventRequest'
 
 export class EventsAccess {
 
@@ -73,6 +74,25 @@ export class EventsAccess {
       UpdateExpression: 'SET #commentsAttr = list_append(#commentsAttr, :newComment)',
       ExpressionAttributeNames: { '#commentsAttr': 'comments' },
       ExpressionAttributeValues: { ':newComment': [comment] }
+    }).promise()
+
+    return result.Attributes as Event
+  }
+
+  async updateEvent(eventId: string, ownerId: string, updateEventReq: UpdateEventRequest) {
+    const result = await this.docClient.update({
+      TableName : this.eventsTable,
+      Key: {
+        'eventId': eventId,
+        'ownerId': ownerId
+      },
+      UpdateExpression: "set startTime = :startTime, endTime = :endTime, title = :title",
+      ExpressionAttributeValues: {
+        ":startTime": updateEventReq.startTime,
+        ":endTime": updateEventReq.endTime,
+        ":title": updateEventReq.title
+      },
+      ReturnValues:"UPDATED_NEW"
     }).promise()
 
     return result.Attributes as Event

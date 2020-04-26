@@ -5,6 +5,7 @@ import { Comment } from '../models/Comment'
 import { CreateEventRequest } from '../requests/createEventRequest'
 import { EventsAccess } from '../datalayer/eventsAccess'
 import { CreateEventCommentRequest } from '../requests/createEventCommentRequest'
+import { UpdateEventRequest } from '../requests/updateEventRequest'
 
 const eventsAccess = new EventsAccess()
 
@@ -50,4 +51,10 @@ export async function addCommentToEvent(newEventCommentReq: CreateEventCommentRe
   const event = await eventsAccess.getEventById(eventId)
 
   return eventsAccess.addCommentToEvent(newComment, eventId, event.ownerId)
+}
+
+export async function updateEvent(eventId: string, ownerId: string, updateEventReq: UpdateEventRequest) {
+
+  // TODO: validate dates here!!
+  return eventsAccess.updateEvent(eventId, ownerId, updateEventReq)
 }
