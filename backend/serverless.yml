@@ -28,6 +28,7 @@ provider:
     EVENTS_TABLE: Events-${self:provider.stage}
     EVENTS_GAME_ID_INDEX: Events_GameIdIndex
     EVENTS_OWNER_ID_INDEX: Events_OwnerIdIndex
+    GAMES_TABLE: Games-${self:provider.stage}
 
 
 custom:
@@ -200,3 +201,15 @@ resources:
             KeyType: RANGE
           Projection:
             ProjectionType: ALL
+
+  GamesDynamoDbTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: gameId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: gameId
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      TableName: ${self:provider.environment.GAMES_TABLE}
