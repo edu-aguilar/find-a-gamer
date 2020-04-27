@@ -72,12 +72,8 @@ export async function createSignedUrl(eventId: string, ownerId: string) {
   if (targetEvent) {
     const imageId = generateRandomUUID()
     const result = generateSignedUrl(imageId)
-    const updatedEvent: UpdateEventRequest = {
-      ...targetEvent,
-      image: result.imgUrl
-    }
 
-    await eventsAccess.updateEvent(eventId, ownerId, updatedEvent)
+    await eventsAccess.updateEventImage(eventId, ownerId, result.imgUrl)
 
     return result.signedUrl
   } else {

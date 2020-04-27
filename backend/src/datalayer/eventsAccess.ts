@@ -86,12 +86,11 @@ export class EventsAccess {
         'eventId': eventId,
         'ownerId': ownerId
       },
-      UpdateExpression: "set startTime = :startTime, endTime = :endTime, title = :title, image = :image",
+      UpdateExpression: "set startTime = :startTime, endTime = :endTime, title = :title",
       ExpressionAttributeValues: {
         ":startTime": updateEventReq.startTime,
         ":endTime": updateEventReq.endTime,
-        ":title": updateEventReq.title,
-        ":image": updateEventReq.image
+        ":title": updateEventReq.title
       },
       ReturnValues:"UPDATED_NEW"
     }).promise()
@@ -107,6 +106,23 @@ export class EventsAccess {
         'ownerId': ownerId
       },
     }).promise()
+  }
+
+  async updateEventImage(eventId: string, ownerId: string, imgUrl: string) {
+    const result = await this.docClient.update({
+      TableName : this.eventsTable,
+      Key: {
+        'eventId': eventId,
+        'ownerId': ownerId
+      },
+      UpdateExpression: "set image = :image",
+      ExpressionAttributeValues: {
+        ":image": imgUrl
+      },
+      ReturnValues:"UPDATED_NEW"
+    }).promise()
+
+    return result.Attributes as Event
   }
 
 }
