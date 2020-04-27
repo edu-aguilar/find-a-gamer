@@ -54,11 +54,15 @@ custom:
 
 functions:
   
+  Auth:
+    handler: src/lambda/auth/auth0Authorizer.handler
+
   CreateEvent:
     handler: src/lambda/http/createEvent.handler
     events:
       - http:
           method: post
+          authorizer: Auth
           path: events
           cors: true
           reqValidatorName: RequestBodyValidator
@@ -91,6 +95,7 @@ functions:
     events:
       - http:
           method: get
+          authorizer: Auth
           path: users/{ownerId}/events
           cors: true
     iamRoleStatements:
@@ -104,6 +109,7 @@ functions:
     events:
       - http:
           method: post
+          authorizer: Auth
           path: events/{eventId}/comments
           cors: true
           reqValidatorName: RequestBodyValidator
@@ -124,6 +130,7 @@ functions:
     events:
       - http:
           method: patch
+          authorizer: Auth
           path: events/{eventId}
           cors: true
           reqValidatorName: RequestBodyValidator
@@ -143,6 +150,7 @@ functions:
     events:
       - http:
           method: delete
+          authorizer: Auth
           path: events/{eventId}
           cors: true
           documentation:
@@ -172,6 +180,7 @@ functions:
     events:
       - http:
           method: post
+          authorizer: Auth
           path: events/{eventId}/image
           cors: true
     iamRoleStatements:
