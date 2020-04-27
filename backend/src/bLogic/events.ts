@@ -65,14 +65,25 @@ export async function deleteTodo(eventId: string, ownerId: string) {
   return eventsAccess.deleteTodo(eventId, ownerId)
 }
 
-export function createSignedUrl(eventId: string) {
-  console.log(eventId)
-  
-  // check first if event exists
-  const imageId = generateRandomUUID()
-  const result = generateSignedUrl(imageId)
+export async function createSignedUrl(eventId: string, ownerId: string) {
 
-  // update Existing event with result.imgUrl
+  const targetEvent: Event = await eventsAccess.getEventById(eventId)
 
-  return result.signedUrl
+  if (targetEvent) {
+    const imageId = generateRandomUUID()
+    const result = generateSignedUrl(imageId)
+    const updatedEvent: UpdateEventRequest = {
+      ...targetEvent,
+      image: result.imgUrl
+    }
+
+    await eventsAccess.updateEvent(eventId, ownerId, updatedEvent)
+
+    return result.signedUrl
+  } else {
+    console.log('404 event not found')
+    return ''
+  }
+
+
 }

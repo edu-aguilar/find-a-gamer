@@ -86,11 +86,12 @@ export class EventsAccess {
         'eventId': eventId,
         'ownerId': ownerId
       },
-      UpdateExpression: "set startTime = :startTime, endTime = :endTime, title = :title",
+      UpdateExpression: "set startTime = :startTime, endTime = :endTime, title = :title, image = :image",
       ExpressionAttributeValues: {
         ":startTime": updateEventReq.startTime,
         ":endTime": updateEventReq.endTime,
-        ":title": updateEventReq.title
+        ":title": updateEventReq.title,
+        ":image": updateEventReq.image
       },
       ReturnValues:"UPDATED_NEW"
     }).promise()
