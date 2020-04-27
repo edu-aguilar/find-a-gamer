@@ -177,6 +177,7 @@ functions:
     iamRoleStatements:
       - Effect: Allow
         Action:
+          - dynamoDB:Query
           - dynamoDB:UpdateItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
       - Effect: Allow
