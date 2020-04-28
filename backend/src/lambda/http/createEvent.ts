@@ -4,12 +4,13 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 
 import { CreateEventRequest } from './../../requests/createEventRequest'
 import { createEvent } from '../../bLogic/events'
+import { getUserId } from '../utils'
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   const newEventReq: CreateEventRequest = JSON.parse(event.body)
-  console.log('TRAZA: ', newEventReq)
-  const ownerId = '12345' // TODO: get ownerId from jwt
+
+  const ownerId = getUserId(event)
   const createdEvent = await createEvent(newEventReq, ownerId)
 
   return {

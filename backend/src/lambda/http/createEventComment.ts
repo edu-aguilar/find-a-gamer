@@ -4,13 +4,14 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 
 import { CreateEventCommentRequest } from './../../requests/createEventCommentRequest'
 import { addCommentToEvent } from '../../bLogic/events'
+import { getUserId } from '../utils'
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   const newEventCommentReq: CreateEventCommentRequest = JSON.parse(event.body)
   const eventId = event.pathParameters.eventId
 
-  const userId = '7890' // TODO: get userId from jwt
+  const userId = getUserId(event)
   const updatedEvent = await addCommentToEvent(newEventCommentReq, userId, eventId)
 
   return {

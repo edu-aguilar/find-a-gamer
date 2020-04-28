@@ -7,7 +7,6 @@ import { getEvents } from '../../bLogic/events'
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   const queryParams = event.queryStringParameters
-  console.log('TRAZA QP: ', queryParams)
   let events: Event[]
 
   try {
