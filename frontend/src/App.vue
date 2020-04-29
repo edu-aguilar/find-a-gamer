@@ -1,12 +1,44 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <header id="nav">
+      <burger :isActive="isSideMenuOpened" @burger-clicked="toggleSideMenu">
+      </burger>
+      <p>APP VERSION: {{ version }}</p>
+    </header>
+
+    <side-menu :opened="isSideMenuOpened" @backdrop-clicked="toggleSideMenu">
+      <ul class="sidebar-panel-nav">
+        <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="/about">About</router-link></li>
+      </ul>
+    </side-menu>
+
+    <main class="view-wrapper">
+      <router-view />
+    </main>
   </div>
 </template>
+
+<script>
+import Burger from "./components/layout/Burger";
+import SideMenu from "./components/layout/SideMenu";
+
+export default {
+  name: "App",
+  components: { Burger, SideMenu },
+  data() {
+    return {
+      version: process.env.VUE_APP_VERSION,
+      isSideMenuOpened: false
+    };
+  },
+  methods: {
+    toggleSideMenu() {
+      this.isSideMenuOpened = !this.isSideMenuOpened;
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 #app {
