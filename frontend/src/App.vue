@@ -3,12 +3,11 @@
     <header id="nav">
       <burger :isActive="isSideMenuOpened" @burger-clicked="toggleSideMenu">
       </burger>
-      <p>APP VERSION: {{ version }}</p>
+      <p><router-link to="/">Find a Gamer</router-link></p>
     </header>
 
     <side-menu :opened="isSideMenuOpened" @backdrop-clicked="toggleSideMenu">
       <ul class="sidebar-panel-nav">
-        <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/about">About</router-link></li>
       </ul>
     </side-menu>
@@ -28,7 +27,7 @@ export default {
   components: { Burger, SideMenu },
   data() {
     return {
-      version: process.env.VUE_APP_VERSION,
+      appVersion: process.env.VUE_APP_VERSION,
       isSideMenuOpened: false
     };
   },
@@ -36,6 +35,9 @@ export default {
     toggleSideMenu() {
       this.isSideMenuOpened = !this.isSideMenuOpened;
     }
+  },
+  mounted() {
+    console.log(`Find a Gamer app version ${this.appVersion}`);
   }
 };
 </script>
