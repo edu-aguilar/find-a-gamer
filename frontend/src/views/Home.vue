@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <p>APP VERSION: {{ version }}</p>
     <button @click="getEventsByGame">get events</button>
     <div v-if="!$auth.loading">
       <button v-if="!$auth.isAuthenticated" @click="login">Log in</button>
@@ -22,14 +21,13 @@
 
 <script>
 import { fetchEventsByGame, fetchAvailableGames } from "../http/events";
-import gameSelector from "../components/gameSelector";
+import GameSelector from "../components/GameSelector";
 
 export default {
   name: "Home",
-  components: { gameSelector },
-  data: function() {
+  components: { GameSelector },
+  data() {
     return {
-      version: process.env.VUE_APP_VERSION,
       events: null,
       availableGames: [],
       selectedGame: null
