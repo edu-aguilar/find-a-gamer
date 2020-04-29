@@ -5,3 +5,8 @@ export const fetchEventsByGame = gameId => {
   const endpoint = `${ENDPOINTS.EVENTS}?gameId=${gameId}`;
   return GET(endpoint);
 };
+
+export const fetchAvailableGames = () => {
+  const endpoint = `${ENDPOINTS.GAMES}`;
+  return GET(endpoint);
+};

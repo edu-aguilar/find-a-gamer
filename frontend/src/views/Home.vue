@@ -1,18 +1,19 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
     <p>APP VERSION: {{ version }}</p>
-    <button @click="fetchGames">fetch csgo games</button>
+    <button @click="getEventsByGame">get events</button>
     <div v-if="!$auth.loading">
       <button v-if="!$auth.isAuthenticated" @click="login">Log in</button>
       <button v-if="$auth.isAuthenticated" @click="logout">Log out</button>
     </div>
+    <game-selector @game-changed="handleGameChanged" :items="availableGames">
+    </game-selector>
     <section class="games">
       <ul id="example-1">
-        <li v-for="(game, index) in games" :key="index">
-          <p>{{ game.title }}</p>
-          <p>{{ game.startTime }}</p>
-          <p>{{ game.endTime }}</p>
+        <li v-for="(event, index) in events" :key="index">
+          <p>{{ event.title }}</p>
+          <p>{{ event.startTime }}</p>
+          <p>{{ event.endTime }}</p>
         </li>
       </ul>
     </section>
@@ -20,15 +21,24 @@
 </template>
 
 <script>
-import { fetchEventsByGame } from "../http/events";
+import { fetchEventsByGame, fetchAvailableGames } from "../http/events";
+import gameSelector from "../components/gameSelector";
 
 export default {
   name: "Home",
+  components: { gameSelector },
   data: function() {
     return {
       version: process.env.VUE_APP_VERSION,
-      games: null
+      events: null,
+      availableGames: [],
+      selectedGame: null
     };
+  },
+  async mounted() {
+    const result = await fetchAvailableGames();
+    this.availableGames = result.data.items;
+    this.selectedGame = this.availableGames[0];
   },
   methods: {
     login() {
@@ -39,9 +49,12 @@ export default {
         returnTo: window.location.origin
       });
     },
-    async fetchGames() {
-      const result = await fetchEventsByGame("csgoID");
-      this.games = result.data.items;
+    async getEventsByGame() {
+      const result = await fetchEventsByGame(this.selectedGame.gameId);
+      this.events = result.data.items;
+    },
+    handleGameChanged(game) {
+      this.selectedGame = game;
     }
   }
 };
