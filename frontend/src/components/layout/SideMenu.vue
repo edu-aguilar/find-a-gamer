@@ -1,10 +1,12 @@
 <template>
   <div class="sidemenu">
-    <div
-      class="sidemenu-backdrop"
-      @click="closesidemenuPanel"
-      v-if="opened"
-    ></div>
+    <transition name="fade">
+      <div
+        class="sidemenu-backdrop"
+        @click="closesidemenuPanel"
+        v-if="opened"
+      ></div>
+    </transition>
     <transition name="slide">
       <div v-if="opened" class="sidemenu-panel">
         <slot></slot>
@@ -38,6 +40,13 @@ export default {
 .slide-leave-to {
   transform: translateX(-100%);
   transition: all 150ms ease-in 0s;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
 .sidemenu-backdrop {
