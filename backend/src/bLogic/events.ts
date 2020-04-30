@@ -83,3 +83,8 @@ export async function createSignedUrl(eventId: string, ownerId: string) {
 
 
 }
+
+export async function getEventById(eventId: string) {
+
+  return eventsAccess.getEventById(eventId)
+}

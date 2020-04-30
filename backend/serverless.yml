@@ -89,7 +89,7 @@ functions:
         Action:
           - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}/index/${self:provider.environment.EVENTS_GAME_ID_INDEX}
-  
+ 
   GetOwnerEvents:
     handler: src/lambda/http/getOwnerEvents.handler
     events:
@@ -122,6 +122,19 @@ functions:
       - Effect: Allow
         Action:
           - dynamoDB:UpdateItem
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
+  
+  GetEvent:
+    handler: src/lambda/http/getEvent.handler
+    events:
+      - http:
+          method: get
+          path: events/{eventId}
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
           - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
 
