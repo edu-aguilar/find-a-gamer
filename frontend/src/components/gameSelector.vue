@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       games: []
-    }
+    };
   },
   methods: {
     gameChanged(event) {

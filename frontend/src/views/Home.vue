@@ -4,8 +4,7 @@
       <button v-if="!$auth.isAuthenticated" @click="login">Log in</button>
       <button v-if="$auth.isAuthenticated" @click="logout">Log out</button>
     </div>
-    <game-selector @game-changed="handleGameChanged">
-    </game-selector>
+    <game-selector @game-changed="handleGameChanged"></game-selector>
     <section class="games">
       <ul id="example-1">
         <li v-for="(event, index) in events" :key="index">
@@ -49,23 +48,23 @@ export default {
       this.events = result.data.items;
     },
     handleGameChanged(game) {
-      this.getEventsByGame(game.gameId)
+      this.getEventsByGame(game.gameId);
     },
     goToCreate() {
-      router.push({ name: 'eventsCreate' })
+      router.push({ name: "eventsCreate" });
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-  .new-event {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    border-radius: 50%;
-    height: 48px;
-    width: 48px;
-    font-size: 20px;
-  }
+.new-event {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+  font-size: 20px;
+}
 </style>

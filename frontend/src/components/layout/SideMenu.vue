@@ -35,17 +35,18 @@ export default {
 .slide-leave-active {
   transition: transform 0.2s ease;
 }
-
 .slide-enter,
 .slide-leave-to {
   transform: translateX(-100%);
   transition: all 150ms ease-in 0s;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .2s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 
