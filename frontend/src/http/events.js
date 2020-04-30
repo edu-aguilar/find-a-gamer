@@ -15,3 +15,8 @@ export const createEvent = event => {
   const endpoint = `${ENDPOINTS.EVENTS}`;
   return POST(endpoint, event);
 };
+
+export const getEventById = eventId => {
+  const endpoint = `${ENDPOINTS.EVENTS}/${eventId}`;
+  return GET(endpoint);
+}
