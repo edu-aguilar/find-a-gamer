@@ -1,11 +1,10 @@
 <template>
   <div class="home">
-    <button @click="getEventsByGame">get events</button>
     <div v-if="!$auth.loading">
       <button v-if="!$auth.isAuthenticated" @click="login">Log in</button>
       <button v-if="$auth.isAuthenticated" @click="logout">Log out</button>
     </div>
-    <game-selector @game-changed="handleGameChanged" :items="availableGames">
+    <game-selector @game-changed="handleGameChanged">
     </game-selector>
     <section class="games">
       <ul id="example-1">
@@ -16,11 +15,16 @@
         </li>
       </ul>
     </section>
+    <button class="new-event" @click="goToCreate">
+      +
+    </button>
   </div>
 </template>
 
 <script>
-import { fetchEventsByGame, fetchAvailableGames } from "../http/events";
+import router from "../router";
+
+import { fetchEventsByGame } from "../http/events";
 import GameSelector from "../components/GameSelector";
 
 export default {
@@ -28,15 +32,8 @@ export default {
   components: { GameSelector },
   data() {
     return {
-      events: null,
-      availableGames: [],
-      selectedGame: null
+      events: null
     };
-  },
-  async mounted() {
-    const result = await fetchAvailableGames();
-    this.availableGames = result.data.items;
-    this.selectedGame = this.availableGames[0];
   },
   methods: {
     login() {
@@ -47,13 +44,28 @@ export default {
         returnTo: window.location.origin
       });
     },
-    async getEventsByGame() {
-      const result = await fetchEventsByGame(this.selectedGame.gameId);
+    async getEventsByGame(gameId) {
+      const result = await fetchEventsByGame(gameId);
       this.events = result.data.items;
     },
     handleGameChanged(game) {
-      this.selectedGame = game;
+      this.getEventsByGame(game.gameId)
+    },
+    goToCreate() {
+      router.push({ name: 'eventsCreate' })
     }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+  .new-event {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    font-size: 20px;
+  }
+</style>
