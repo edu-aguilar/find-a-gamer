@@ -16,6 +16,7 @@ export default {
     createEvent(event) {
       console.log("create event: ", event);
       _createEvent(event);
+      // TODO: handle createEvent response
     }
   }
 };
