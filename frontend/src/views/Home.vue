@@ -6,11 +6,13 @@
     </div>
     <game-selector @game-changed="handleGameChanged"></game-selector>
     <section class="games">
-      <ul id="example-1">
+      <ul>
         <li v-for="(event, index) in events" :key="index">
-          <p>{{ event.title }}</p>
-          <p>{{ event.startTime }}</p>
-          <p>{{ event.endTime }}</p>
+          <router-link :to="{ name: 'eventDetail', params: { eventId: event.eventId }}">
+            <p>{{ event.title }}</p>
+            <p>{{ event.startTime }}</p>
+            <p>{{ event.endTime }}</p>
+          </router-link>
         </li>
       </ul>
     </section>
