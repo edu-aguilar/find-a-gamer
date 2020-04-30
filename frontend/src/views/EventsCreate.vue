@@ -7,13 +7,15 @@
 
 <script>
 import EventCreator from "@/components/EventCreator";
+import { createEvent as _createEvent } from "@/http/events";
 
 export default {
   name: "EventsCreate",
   components: { EventCreator },
   methods: {
     createEvent(event) {
-      console.log('create event: ', event)
+      console.log("create event: ", event);
+      _createEvent(event);
     }
   }
 };
