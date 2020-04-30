@@ -9,9 +9,10 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const eventId: string = event.pathParameters.eventId
   const _event: Event = await getEventById(eventId)
 
+  const statusCode = !!_event ? 200 : 404
   
   return {
-    statusCode: Object.keys(_event).length ? 200 : 404,
+    statusCode,
     headers: {
     'Access-Control-Allow-Origin': '*',
     },
