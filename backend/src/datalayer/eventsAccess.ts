@@ -95,6 +95,8 @@ export class EventsAccess {
       ReturnValues:"UPDATED_NEW"
     }).promise()
 
+    console.log('update result: ', result)
+
     return result.Attributes as Event
   }
 

@@ -156,6 +156,7 @@ functions:
       - Effect: Allow
         Action:
           - dynamoDB:UpdateItem
+          - dynamoDB:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
     
   DeleteEvent:

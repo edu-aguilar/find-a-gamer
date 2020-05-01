@@ -12,14 +12,26 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const eventId: string = event.pathParameters.eventId
   const ownerId: string = getUserId(event)
 
-  const updatedEvent: Event = await updateEvent(eventId, ownerId, updateEventReq)
-
-  return {
-    statusCode: 200,
-    headers: {
-    'Access-Control-Allow-Origin': '*',
-    },
-    body: JSON.stringify({ item: updatedEvent }),
+  
+  try {
+    const updatedEvent: Event = await updateEvent(eventId, ownerId, updateEventReq)
+    return {
+      statusCode: 200,
+      headers: {
+      'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ item: updatedEvent }),
+    }
+  } catch (error) {
+    console.log('TRAZA ERROR UPDATE: ', error)
+    return {
+      statusCode: error.statusCode,
+      headers: {
+      'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify(error.message),
+    }
   }
+
 
 };

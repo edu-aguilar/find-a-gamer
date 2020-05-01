@@ -58,7 +58,26 @@ export async function addCommentToEvent(newEventCommentReq: CreateEventCommentRe
 export async function updateEvent(eventId: string, ownerId: string, updateEventReq: UpdateEventRequest) {
 
   // TODO: validate dates here!!
-  return eventsAccess.updateEvent(eventId, ownerId, updateEventReq)
+
+  const targetEvent: Event = await eventsAccess.getEventById(eventId)
+
+  console.log('event to update: ', targetEvent)
+
+  if (!targetEvent) {
+    return Promise.reject({
+      statusCode: 404,
+      message: 'Event not found'
+    })
+  }
+  else if (targetEvent.ownerId !== ownerId) {
+    return Promise.reject({
+      statusCode: 401,
+      message: 'You are not the owner of this event!'
+    })
+  } else {
+    return eventsAccess.updateEvent(eventId, ownerId, updateEventReq)
+  }
+
 }
 
 export async function deleteTodo(eventId: string, ownerId: string) {
