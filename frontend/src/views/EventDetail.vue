@@ -13,6 +13,7 @@
       <img :src="event.image" class="event__image" alt="" />
       <div class="event__comments">
         <h2>Match comments:</h2>
+        <p v-if="!event.comments.length">There is no comments yet. Come on!! be the first one to add a comment!</p>
         <ul class="event__comments__comment">
           <li v-for="(comment, index) in event.comments" :key="index">
             <span>User {{ comment.userId }} said: </span>
