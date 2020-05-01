@@ -42,4 +42,4 @@ export const deleteEvent = eventId => {
 export const getEventsByUser = userId => {
   const endpoint = `${ENDPOINTS.USERS}/${userId}/${ENDPOINTS.EVENTS}`;
   return GET(endpoint);
-}
+};

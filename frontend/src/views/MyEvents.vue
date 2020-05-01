@@ -33,8 +33,6 @@ export default {
     const result = await getEventsByUser(userId);
     this.events = result.data.items;
   },
-  methods: {
-    
-  }
+  methods: {}
 };
 </script>
