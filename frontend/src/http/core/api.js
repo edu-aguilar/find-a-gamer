@@ -9,18 +9,42 @@ const ENDPOINTS = {
   USERS: "users"
 };
 
-const GET = endpoint => {
-  return axios.get(`${baseURL}${endpoint}`);
-};
+const getCommonHeaders = () => ({
+  "Content-Type": "application/json"
+});
 
-const POST = async (endpoint, body) => {
+const getPrivateHeaders = async () => {
   const authService = getInstance();
   const jwt = await authService.getJwt();
+  return {
+    Authorization: `Bearer ${jwt}`
+  };
+};
+
+const getHeaders = isPrivate => {
+  let headers = getCommonHeaders();
+  if (isPrivate) {
+    headers = { ...headers, ...getPrivateHeaders() };
+  }
+  return headers;
+};
+
+const GET = async (endpoint, isPrivate = false) => {
+  const headers = getHeaders(isPrivate);
+  return axios({
+    method: "get",
+    url: `${baseURL}${endpoint}`,
+    headers
+  });
+};
+
+const POST = async (endpoint, body, isPrivate = true) => {
+  const headers = getHeaders(isPrivate);
   return axios({
     method: "post",
     url: `${baseURL}${endpoint}`,
     data: body,
-    headers: { Authorization: `Bearer ${jwt}` }
+    headers
   });
 };
 
