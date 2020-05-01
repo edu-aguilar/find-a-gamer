@@ -7,6 +7,7 @@
           >Edit</router-link
         >
       </button>
+      <button @click="removeEvent">Delete</button>
     </div>
     <div v-if="!event">
       <p>Fetching event detail...</p>
@@ -53,7 +54,7 @@
 </template>
 
 <script>
-import { getEventById, addMessageToEvent } from "@/http/events";
+import { getEventById, addMessageToEvent, deleteEvent } from "@/http/events";
 import { getUserIdFromJWT } from "@/utils/token";
 
 export default {
@@ -87,6 +88,14 @@ export default {
     async checkUserIsOwner() {
       const jwt = await this.$auth.getJwt();
       return this.event && this.event.ownerId === getUserIdFromJWT(jwt);
+    },
+    async removeEvent() {
+      try {
+        await deleteEvent(this.event.eventId)
+        alert('Event removed successfully');
+      } catch (error) {
+        alert('Error removing event')
+      }
     }
   }
 };

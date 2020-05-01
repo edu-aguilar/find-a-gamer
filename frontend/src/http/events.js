@@ -1,4 +1,4 @@
-import { ENDPOINTS, GET, POST, PATCH } from "./core/api";
+import { ENDPOINTS, GET, POST, PATCH, DELETE } from "./core/api";
 
 export const fetchEventsByGame = gameId => {
   console.log("fetchEventsByGame: ", gameId);
@@ -32,4 +32,9 @@ export const addMessageToEvent = (eventId, message) => {
 export const updateEvent = (updatedEvent, eventId) => {
   const endpoint = `${ENDPOINTS.EVENTS}/${eventId}`;
   return PATCH(endpoint, updatedEvent);
+};
+
+export const deleteEvent = (eventId) => {
+  const endpoint = `${ENDPOINTS.EVENTS}/${eventId}`;
+  return DELETE(endpoint);
 };
