@@ -96,13 +96,13 @@ export const useAuth0 = ({
 
           onRedirectCallback(appState);
         }
+        console.log('user token: ', await this.$auth.getJwt());
       } catch (e) {
         this.error = e;
       } finally {
         this.isAuthenticated = await this.auth0Client.isAuthenticated();
         this.user = await this.auth0Client.getUser();
         this.loading = false;
-        console.log('user token: ', await this.$auth.getJwt());
       }
     }
   });

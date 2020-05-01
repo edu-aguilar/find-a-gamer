@@ -17,20 +17,21 @@ const getPrivateHeaders = async () => {
   const authService = getInstance();
   const jwt = await authService.getJwt();
   return {
-    Authorization: `Bearer ${jwt}`
+    "Authorization": `Bearer ${jwt}`
   };
 };
 
-const getHeaders = isPrivate => {
+const getHeaders = async isPrivate => {
   let headers = getCommonHeaders();
   if (isPrivate) {
-    headers = { ...headers, ...getPrivateHeaders() };
+    const privateHeaders = await getPrivateHeaders();
+    headers = { ...headers, ...privateHeaders };
   }
   return headers;
 };
 
 const GET = async (endpoint, isPrivate = false) => {
-  const headers = getHeaders(isPrivate);
+  const headers = await getHeaders(isPrivate);
   return axios({
     method: "get",
     url: `${baseURL}${endpoint}`,
@@ -39,7 +40,7 @@ const GET = async (endpoint, isPrivate = false) => {
 };
 
 const POST = async (endpoint, body, isPrivate = true) => {
-  const headers = getHeaders(isPrivate);
+  const headers = await getHeaders(isPrivate);
   return axios({
     method: "post",
     url: `${baseURL}${endpoint}`,
