@@ -34,7 +34,7 @@ export const updateEvent = (updatedEvent, eventId) => {
   return PATCH(endpoint, updatedEvent);
 };
 
-export const deleteEvent = (eventId) => {
+export const deleteEvent = eventId => {
   const endpoint = `${ENDPOINTS.EVENTS}/${eventId}`;
   return DELETE(endpoint);
 };

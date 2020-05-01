@@ -91,10 +91,10 @@ export default {
     },
     async removeEvent() {
       try {
-        await deleteEvent(this.event.eventId)
-        alert('Event removed successfully');
+        await deleteEvent(this.event.eventId);
+        alert("Event removed successfully");
       } catch (error) {
-        alert('Error removing event')
+        alert("Error removing event");
       }
     }
   }
