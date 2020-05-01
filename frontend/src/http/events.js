@@ -38,3 +38,8 @@ export const deleteEvent = eventId => {
   const endpoint = `${ENDPOINTS.EVENTS}/${eventId}`;
   return DELETE(endpoint);
 };
+
+export const getEventsByUser = userId => {
+  const endpoint = `${ENDPOINTS.USERS}/${userId}/${ENDPOINTS.EVENTS}`;
+  return GET(endpoint);
+}

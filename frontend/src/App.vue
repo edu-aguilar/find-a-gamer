@@ -3,12 +3,13 @@
     <header id="nav">
       <burger :isActive="isSideMenuOpened" @burger-clicked="toggleSideMenu">
       </burger>
-      <p><router-link to="/">Find a Gamer</router-link></p>
+      <p><router-link :to="{ name: 'Home'}">Find a Gamer</router-link></p>
     </header>
 
     <side-menu :opened="isSideMenuOpened" @backdrop-clicked="toggleSideMenu">
       <ul class="sidebar-panel-nav">
-        <li><router-link to="/about">About</router-link></li>
+        <li><router-link :to="{ name: 'About'}">About</router-link></li>
+        <li><router-link :to="{ name: 'myEvents'}">My events</router-link></li>
       </ul>
     </side-menu>
 

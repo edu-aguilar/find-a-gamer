@@ -10,7 +10,7 @@ const ENDPOINTS = {
 };
 
 const getCommonHeaders = () => ({
-  "Content-Type": "application/json"
+  "Content-Type": "application/json; charset=utf-8"
 });
 
 const getPrivateHeaders = async () => {
