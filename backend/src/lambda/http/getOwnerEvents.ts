@@ -4,10 +4,12 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 
 import { Event } from '../../models/Event'
 import { getEventsByOwnerId } from '../../bLogic/events'
+import { toUtf8 } from '../utils';
+
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
-  const ownerId = event.pathParameters.ownerId
+  const ownerId = toUtf8(event.pathParameters.ownerId)
   const events: Event[] = await getEventsByOwnerId(ownerId)
 
   return {

@@ -14,3 +14,9 @@ export function getUserId(event: APIGatewayProxyEvent): string {
 
   return parseUserId(jwtToken)
 }
+
+export function toUtf8(s: string) {
+  return s.replace( /%([a-f0-9]{2})/gi, function( _f, m1 ) {
+    return String.fromCharCode(parseInt(m1, 16));
+  });
+}
