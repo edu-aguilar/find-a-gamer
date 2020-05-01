@@ -11,12 +11,16 @@
     },
     "title": {
       "type": "string"
+    },
+    "description": {
+      "type": "string"
     }
   },
   "required": [
     "startTime",
     "endTime",
-    "title"
+    "title",
+    "description"
   ],
   "additionalProperties": false
 }
