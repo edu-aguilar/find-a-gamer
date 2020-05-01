@@ -10,7 +10,7 @@
         <label for="description">Description: </label>
         <textarea
           name="description"
-          id=""
+          id="description"
           cols="50"
           rows="6"
           v-model="event.description"

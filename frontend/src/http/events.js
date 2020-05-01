@@ -20,3 +20,11 @@ export const getEventById = eventId => {
   const endpoint = `${ENDPOINTS.EVENTS}/${eventId}`;
   return GET(endpoint);
 }
+
+export const addMessageToEvent = (eventId, message) => {
+  const body = {
+    message
+  }
+  const endpoint = `${ENDPOINTS.EVENTS}/${eventId}/comments`;
+  return POST(endpoint, body);
+}
