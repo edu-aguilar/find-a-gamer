@@ -17,10 +17,10 @@ export default {
     async createEvent(event) {
       try {
         await _createEvent(event);
-        alert('Event created!! yout will be redirected to home.')
+        alert("Event created!! yout will be redirected to home.");
         router.push({ name: "Home" });
       } catch (error) {
-        alert('Error creating event');
+        alert("Error creating event");
       }
     }
   }

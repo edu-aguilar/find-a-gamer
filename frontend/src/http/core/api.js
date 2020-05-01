@@ -17,7 +17,7 @@ const getPrivateHeaders = async () => {
   const authService = getInstance();
   const jwt = await authService.getJwt();
   return {
-    "Authorization": `Bearer ${jwt}`
+    Authorization: `Bearer ${jwt}`
   };
 };
 
@@ -49,4 +49,14 @@ const POST = async (endpoint, body, isPrivate = true) => {
   });
 };
 
-export { ENDPOINTS, GET, POST };
+const PATCH = async (endpoint, body, isPrivate = true) => {
+  const headers = await getHeaders(isPrivate);
+  return axios({
+    method: "patch",
+    url: `${baseURL}${endpoint}`,
+    data: body,
+    headers
+  });
+};
+
+export { ENDPOINTS, GET, POST, PATCH };

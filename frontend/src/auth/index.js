@@ -96,7 +96,7 @@ export const useAuth0 = ({
 
           onRedirectCallback(appState);
         }
-        console.log('user token: ', await this.$auth.getJwt());
+        console.log("user token: ", await this.$auth.getJwt());
       } catch (e) {
         this.error = e;
       } finally {
