@@ -95,7 +95,6 @@ functions:
     events:
       - http:
           method: get
-          authorizer: Auth
           path: users/{ownerId}/events
           cors: true
     iamRoleStatements:
