@@ -6,6 +6,9 @@
     "title": {
       "type": "string"
     },
+    "description": {
+      "type": "string"
+    },
     "startTime": {
       "type": "string"
     },
@@ -18,6 +21,7 @@
   },
   "required": [
     "title",
+    "description",
     "startTime",
     "endTime",
     "gameId"

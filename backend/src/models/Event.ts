@@ -2,6 +2,7 @@ import { Comment } from './Comment'
 
 export interface Event {
   title: string,
+  description: string,
   startTime: string,
   endTime: string,
   gameId: string,
