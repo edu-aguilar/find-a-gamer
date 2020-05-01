@@ -8,7 +8,9 @@
     <section class="games">
       <ul>
         <li v-for="(event, index) in events" :key="index">
-          <router-link :to="{ name: 'eventDetail', params: { eventId: event.eventId }}">
+          <router-link
+            :to="{ name: 'eventDetail', params: { eventId: event.eventId } }"
+          >
             <p>{{ event.title }}</p>
             <p>{{ event.startTime }}</p>
             <p>{{ event.endTime }}</p>
