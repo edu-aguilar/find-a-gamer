@@ -50,8 +50,9 @@ export async function addCommentToEvent(newEventCommentReq: CreateEventCommentRe
     createdAt: new Date().toISOString()
   }
   const event = await eventsAccess.getEventById(eventId)
+  await eventsAccess.addCommentToEvent(newComment, eventId, event.ownerId)
 
-  return eventsAccess.addCommentToEvent(newComment, eventId, event.ownerId)
+  return newComment
 }
 
 export async function updateEvent(eventId: string, ownerId: string, updateEventReq: UpdateEventRequest) {

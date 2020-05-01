@@ -12,13 +12,13 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const eventId = event.pathParameters.eventId
 
   const userId = getUserId(event)
-  const updatedEvent = await addCommentToEvent(newEventCommentReq, userId, eventId)
+  const newComment = await addCommentToEvent(newEventCommentReq, userId, eventId)
 
   return {
-    statusCode: 200,
+    statusCode: 201,
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify({item: updatedEvent})
+    body: JSON.stringify({item: newComment})
   }
 }
