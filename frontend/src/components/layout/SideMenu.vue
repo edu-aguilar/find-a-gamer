@@ -56,13 +56,14 @@ export default {
   height: 100vh;
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
+  z-index: 888;
   cursor: pointer;
 }
 
 .sidemenu-panel {
   overflow-y: auto;
-  background-color: #130f40;
+  background-color: #A4243B;
   position: fixed;
   left: 0;
   top: 0;

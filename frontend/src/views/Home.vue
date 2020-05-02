@@ -1,12 +1,10 @@
 <template>
   <div class="home-view">
-    <div v-if="!$auth.loading">
-      <button v-if="!$auth.isAuthenticated" @click="login">Log in</button>
-      <button v-if="$auth.isAuthenticated" @click="logout">Log out</button>
-    </div>
-    <game-selector class="home-view__game-selector" @game-changed="handleGameChanged"></game-selector>
-    <section class="home-view__events">
+    <section class="home-view__current-game">
       <p v-if="this.currentGame">Latest {{ this.currentGame.name }} events:</p>
+      <game-selector class="home-view__current-game__game-selector" @game-changed="handleGameChanged"></game-selector>
+    </section>
+    <section class="home-view__events">
       <ul class="home-view__events__list">
         <li class="home-view__events__list__item" v-for="(event, index) in events" :key="index">
           <event-card :event="event"></event-card>
@@ -36,14 +34,6 @@ export default {
     };
   },
   methods: {
-    login() {
-      this.$auth.loginWithRedirect();
-    },
-    logout() {
-      this.$auth.logout({
-        returnTo: window.location.origin
-      });
-    },
     async getEventsByGame(gameId) {
       const result = await fetchEventsByGame(gameId);
       this.events = result.data.items;
@@ -61,6 +51,13 @@ export default {
 
 <style lang="scss" scoped>
 .home-view {
+
+  &__current-game {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   &__events {
 
     &__list {
@@ -83,6 +80,12 @@ export default {
     height: 48px;
     width: 48px;
     font-size: 20px;
+    padding-bottom: 11px;
+    background-color: #42B983;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    cursor: pointer;
   }
 }
 </style>

@@ -30,15 +30,16 @@ export default {
     display: block;
     height: 100%;
     text-decoration: none;
-    border: solid 1px gray;
+    border: solid 1px #A4243B;
     border-radius: 10px;
     transition: all 0.2s ease;
+    color: #172A3A;
     
     &:visited {
       color: inherit;
     }
-    &:hover {
-      box-shadow: 4px 8px 12px 0 rgba(0,0,0,0.3);
+    &:hover, &:focus {
+      box-shadow: 4px 8px 12px 0 rgba(164, 36, 59,0.3);
       transform: translatey(-4px);
     }
 

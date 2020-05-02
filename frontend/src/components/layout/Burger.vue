@@ -1,13 +1,9 @@
 <template>
-  <div id="burger" :class="{ active: isActive }" @click.prevent="toggle">
-    <slot>
-      <button type="button" class="burger-button" title="Menu">
-        <span class="burger-bar burger-bar--1"></span>
-        <span class="burger-bar burger-bar--2"></span>
-        <span class="burger-bar burger-bar--3"></span>
-      </button>
-    </slot>
-  </div>
+  <button type="button" class="burger-button" :class="{ active: isActive }" @click.prevent="toggle" title="Menu">
+    <span class="burger-bar burger-bar--1"></span>
+    <span class="burger-bar burger-bar--2"></span>
+    <span class="burger-bar burger-bar--3"></span>
+  </button>
 </template>
 
 <script>
@@ -36,11 +32,6 @@ button {
   cursor: pointer;
 }
 
-/* remove blue outline */
-button:focus {
-  outline: 0;
-}
-
 .burger-button {
   position: relative;
   height: 30px;
@@ -55,7 +46,7 @@ button:focus {
 }
 
 .burger-bar {
-  background-color: #130f40;
+  background-color: #42B983;
   position: absolute;
   top: 50%;
   right: 6px;
