@@ -4,6 +4,9 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import { Auth0Plugin } from "./auth";
+import Loader from "./components/layout/Loader";
+
+Vue.component("loader", Loader);
 
 // TODO: move this to local NODE vars and inject from vue.config.js at build time.
 const domain = "dev-0t584hj4.eu.auth0.com";
