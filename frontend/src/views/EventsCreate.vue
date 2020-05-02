@@ -16,9 +16,10 @@ export default {
   methods: {
     async createEvent(event) {
       try {
-        await _createEvent(event);
-        alert("Event created!! yout will be redirected to home.");
-        router.push({ name: "Home" });
+        const result = await _createEvent(event);
+        const eventId = result.data.item.eventId;
+        alert("Event created!!");
+        router.push({ name: "eventDetail", params: { eventId } });
       } catch (error) {
         alert("Error creating event");
       }
