@@ -18,11 +18,16 @@ package:
 
 
 provider:
+
   name: aws
   runtime: nodejs12.x
 
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
+
+  tracing:
+    lambda: true
+    apiGateway: true
 
   environment:
     EVENTS_TABLE: Events-${self:provider.stage}
@@ -76,6 +81,11 @@ functions:
         Action:
           - dynamoDB:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
+      - Effect: "Allow"
+        Action:
+          - xray:PutTelemetryRecords
+          - xray:PutTraceSegments
+        Resource: "*"
   
   GetEvents:
     handler: src/lambda/http/getEvents.handler
@@ -89,6 +99,11 @@ functions:
         Action:
           - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}/index/${self:provider.environment.EVENTS_GAME_ID_INDEX}
+      - Effect: "Allow"
+        Action:
+          - xray:PutTelemetryRecords
+          - xray:PutTraceSegments
+        Resource: "*"
  
   GetOwnerEvents:
     handler: src/lambda/http/getOwnerEvents.handler
@@ -102,6 +117,11 @@ functions:
         Action:
           - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}/index/${self:provider.environment.EVENTS_OWNER_ID_INDEX}
+      - Effect: "Allow"
+        Action:
+          - xray:PutTelemetryRecords
+          - xray:PutTraceSegments
+        Resource: "*"
 
   CreateEventComment:
     handler: src/lambda/http/createEventComment.handler
@@ -123,6 +143,11 @@ functions:
           - dynamoDB:UpdateItem
           - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
+      - Effect: "Allow"
+        Action:
+          - xray:PutTelemetryRecords
+          - xray:PutTraceSegments
+        Resource: "*"
   
   GetEvent:
     handler: src/lambda/http/getEvent.handler
@@ -136,6 +161,11 @@ functions:
         Action:
           - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
+      - Effect: "Allow"
+        Action:
+          - xray:PutTelemetryRecords
+          - xray:PutTraceSegments
+        Resource: "*"
 
   UpdateEvent:
     handler: src/lambda/http/updateEvent.handler
@@ -157,6 +187,11 @@ functions:
           - dynamoDB:UpdateItem
           - dynamoDB:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
+      - Effect: "Allow"
+        Action:
+          - xray:PutTelemetryRecords
+          - xray:PutTraceSegments
+        Resource: "*"
     
   DeleteEvent:
     handler: src/lambda/http/deleteEvent.handler
@@ -174,6 +209,11 @@ functions:
         Action:
           - dynamoDB:DeleteItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.EVENTS_TABLE}
+      - Effect: "Allow"
+        Action:
+          - xray:PutTelemetryRecords
+          - xray:PutTraceSegments
+        Resource: "*"
 
   GetGames:
     handler: src/lambda/http/getGames.handler
@@ -187,6 +227,11 @@ functions:
         Action:
           - dynamodb:Scan
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GAMES_TABLE}
+      - Effect: "Allow"
+        Action:
+          - xray:PutTelemetryRecords
+          - xray:PutTraceSegments
+        Resource: "*"
   
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler
@@ -206,6 +251,11 @@ functions:
         Action:
           - s3:PutObject
         Resource: arn:aws:s3:::${self:provider.environment.EVENTS_IMAGES_S3_BUCKET}/*
+      - Effect: "Allow"
+        Action:
+          - xray:PutTelemetryRecords
+          - xray:PutTraceSegments
+        Resource: "*"
 
 
 resources:

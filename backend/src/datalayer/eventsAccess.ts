@@ -1,14 +1,17 @@
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
-import { DynamoDB } from 'aws-sdk'
+import * as AWS from 'aws-sdk'
+import * as AWSXRay from 'aws-xray-sdk'
 
 import { Event } from './../models/Event'
 import { Comment } from '../models/Comment'
 import { UpdateEventRequest } from '../requests/updateEventRequest'
 
+const XAWS = AWSXRay.captureAWS(AWS)
+
 export class EventsAccess {
 
   constructor(
-    private readonly docClient: DocumentClient = new DynamoDB.DocumentClient,
+    private readonly docClient: DocumentClient = new XAWS.DynamoDB.DocumentClient,
     private readonly eventsTable = process.env.EVENTS_TABLE,
     private readonly eventsTableByGameIndex = process.env.EVENTS_GAME_ID_INDEX,
     private readonly eventsTableByOwnerIndex = process.env.EVENTS_OWNER_ID_INDEX) { }
