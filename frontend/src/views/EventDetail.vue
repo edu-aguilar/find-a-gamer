@@ -96,7 +96,10 @@ export default {
     },
     async checkUserIsOwner() {
       const jwt = await this.$auth.getJwt();
-      return this.event && this.event.ownerId === getUserIdFromJWT(jwt);
+      if (this.event && jwt) {
+        return this.event.ownerId === getUserIdFromJWT(jwt);
+      }
+      return false;
     },
     async removeEvent() {
       try {

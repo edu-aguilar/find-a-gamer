@@ -68,8 +68,13 @@ export const useAuth0 = ({
         return this.auth0Client.getTokenSilently(o);
       },
       async getJwt() {
-        const result = await this.getIdTokenClaims();
-        return result.__raw;
+        try {
+          const result = await this.getIdTokenClaims();
+          return result.__raw;
+        } catch (error) {
+          console.error('User not logged');
+          return null;
+        }
       },
       getTokenWithPopup(o) {
         return this.auth0Client.getTokenWithPopup(o);
