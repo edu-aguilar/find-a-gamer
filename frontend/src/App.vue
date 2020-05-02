@@ -67,6 +67,8 @@ $primary-color: #172A3A;
   color: #172A3A;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 
   &__header {
     display: flex;
@@ -105,6 +107,7 @@ $primary-color: #172A3A;
     padding: 0 $view-spacing;
     width: 100%;
     box-sizing: border-box;
+    overflow-y: auto;
   }
 }
 
