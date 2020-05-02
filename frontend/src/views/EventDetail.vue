@@ -1,5 +1,5 @@
 <template>
-  <div class="event-detail">
+  <div class="event-detail__view">
     <div class="owner-panel" v-if="isUserOwner">
       <button>
         <router-link
@@ -12,27 +12,35 @@
     <div v-if="!event">
       <p>Fetching event detail...</p>
     </div>
-    <div v-else class="event">
+    <section v-else class="event-detail__event">
       <h1>Event Detail</h1>
       <p>{{ event.title }}</p>
       <p>{{ event.description }}</p>
       <p>Created by: {{ event.ownerId }}</p>
       <p>Starts at: {{ event.startTime }}</p>
       <p>Ends at: {{ event.endTime }}</p>
-      <img :src="event.image" class="event__image" alt="" />
-      <div class="event__comments">
+      <img
+        v-if="event.image"
+        :src="event.image"
+        class="event-detail__event__image"
+        alt="event image"
+      />
+      <div class="event-detail__event__comments">
         <h2>Match comments:</h2>
         <p v-if="!event.comments.length">
           There is no comments yet. Come on!! be the first one to add a comment!
         </p>
-        <ul class="event__comments__comment">
+        <ul class="event-detail__event__comments__comment">
           <li v-for="(comment, index) in event.comments" :key="index">
             <span>User {{ comment.userId }} said: </span>
             <span>{{ comment.message }}</span>
           </li>
         </ul>
         <h2>Add a new comment!</h2>
-        <div class="event__comments__add-comment" v-if="$auth.isAuthenticated">
+        <div
+          class="event-detail__event__comments__add-comment"
+          v-if="$auth.isAuthenticated"
+        >
           <label for="newComment"></label>
           <textarea
             name="newComment"
@@ -49,7 +57,7 @@
           <p>Log in to add a comment to this party!!!</p>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -100,3 +108,14 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.event-detail {
+  &__event {
+    &__image {
+      width: 100%;
+      max-width: 500px;
+    }
+  }
+}
+</style>

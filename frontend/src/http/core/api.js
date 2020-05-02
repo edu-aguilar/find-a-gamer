@@ -68,4 +68,14 @@ const DELETE = async (endpoint, isPrivate = true) => {
   });
 };
 
-export { ENDPOINTS, GET, POST, PATCH, DELETE };
+const PUT = async (endpoint, body, isPrivate = false) => {
+  const headers = await getHeaders(isPrivate);
+  return axios({
+    method: "put",
+    url: endpoint,
+    data: body,
+    headers
+  });
+};
+
+export { ENDPOINTS, GET, POST, PATCH, DELETE, PUT };

@@ -1,4 +1,4 @@
-import { ENDPOINTS, GET, POST, PATCH, DELETE } from "./core/api";
+import { ENDPOINTS, GET, POST, PATCH, DELETE, PUT } from "./core/api";
 
 export const fetchEventsByGame = gameId => {
   console.log("fetchEventsByGame: ", gameId);
@@ -42,4 +42,13 @@ export const deleteEvent = eventId => {
 export const getEventsByUser = userId => {
   const endpoint = `${ENDPOINTS.USERS}/${userId}/${ENDPOINTS.EVENTS}`;
   return GET(endpoint);
+};
+
+export const generateEventImageUploadUrl = eventId => {
+  const endpoint = `${ENDPOINTS.EVENTS}/${eventId}/image`;
+  return POST(endpoint);
+};
+
+export const attachImageToEvent = (newImage, uploadUrl) => {
+  return PUT(uploadUrl, newImage);
 };
