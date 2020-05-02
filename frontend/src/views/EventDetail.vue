@@ -23,7 +23,7 @@
       <img
         v-if="event.image"
         :src="event.image"
-        class="event-detail__event__image"
+        class="event-detail-view__event__image"
         alt="event image"
       />
       <div class="event-detail__event__comments">
@@ -31,7 +31,7 @@
         <p v-if="!event.comments.length">
           There is no comments yet. Come on!! be the first one to add a comment!
         </p>
-        <ul class="event-detail__event__comments__comment">
+        <ul class="event-detail-view__event__comments__comment">
           <li v-for="(comment, index) in event.comments" :key="index">
             <span>User {{ comment.userId }} said: </span>
             <span>{{ comment.message }}</span>
@@ -39,7 +39,7 @@
         </ul>
         <h2>Add a new comment!</h2>
         <div
-          class="event-detail__event__comments__add-comment"
+          class="event-detail-view__event__comments__add-comment"
           v-if="$auth.isAuthenticated"
         >
           <label for="newComment"></label>

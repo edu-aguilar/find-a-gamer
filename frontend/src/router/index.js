@@ -43,7 +43,8 @@ const routes = [
     path: "/my/events",
     name: "myEvents",
     component: () =>
-      import(/* webpackChunkName: "myEvents" */ "../views/MyEvents.vue")
+      import(/* webpackChunkName: "myEvents" */ "../views/MyEvents.vue"),
+    beforeEnter: authGuard
   }
 ];
 
