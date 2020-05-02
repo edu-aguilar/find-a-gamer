@@ -1,18 +1,19 @@
 <template>
-  <div class="event-detail__view">
-    <div class="owner-panel" v-if="isUserOwner">
-      <button>
-        <router-link
-          :to="{ name: 'eventEdit', params: { eventId: event.eventId } }"
-          >Edit</router-link
-        >
+  <div class="event-detail-view">
+    <section class="event-detail-view__owner-panel" v-if="isUserOwner">
+      <router-link
+        class="button button--primary"
+        :to="{ name: 'eventEdit', params: { eventId: event.eventId } }"
+        ><img src="@/assets/edit.svg" alt="edit event"></router-link
+      >
+      <button class="button button--primary" @click="removeEvent">
+        <img src="@/assets/close.svg" alt="delete event">
       </button>
-      <button @click="removeEvent">Delete</button>
-    </div>
+    </section>
     <div v-if="!event">
       <p>Fetching event detail...</p>
     </div>
-    <section v-else class="event-detail__event">
+    <section v-else class="event-detail-view__event">
       <h1>Event Detail</h1>
       <p>{{ event.title }}</p>
       <p>{{ event.description }}</p>
@@ -110,11 +111,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.event-detail {
+.event-detail-view {
+  &__owner-panel {
+    text-align: right;
+    padding-top: 1rem;
+    .button + .button {
+      margin-left: 1rem;
+    }
+  }
+
   &__event {
     &__image {
       width: 100%;
       max-width: 500px;
+    }
+  }
+}
+
+.button {
+  &--primary {
+    background-color: #42B983;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+
+    img {
+      width: 20px;
     }
   }
 }
