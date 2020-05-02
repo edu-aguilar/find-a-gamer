@@ -35,4 +35,4 @@ Enjoy!!
 #### Event edit
 ![Imgur](https://i.imgur.com/teXYQmD.png)
 #### Other links
-[Imgur](https://i.imgur.com/tItmyko.png)
+![Imgur](https://i.imgur.com/tItmyko.png)
