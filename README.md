@@ -21,4 +21,7 @@ $ npm run serve
 
 And the app will be ready at http://localhost:8080/
 
+### About backend
+If you want to check all available REST API endpoints, there is a postman collection in the repo. Pay attention that some endpoints are privates, so you should use the frontend app, log in, and the jwt is printed to console.
+
 Enjoy!!

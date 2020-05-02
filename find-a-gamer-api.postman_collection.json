@@ -1,0 +1,369 @@
+{
+	"info": {
+		"_postman_id": "cac48268-3a64-44ed-8d0b-aae31535925d",
+		"name": "find-a-gamer-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create event",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"partida 6\",\n\t\"description\": \"partidaca q vamos a echar\",\n\t\"gameId\": \"lolID\",\n\t\"startTime\": \"Sat, 26 Apr 2020 14:50:55 GMT\",\n\t\"endTime\": \"Sat, 26 Apr 2020 15:50:55 GMT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{appId}}.execute-api.us-east-1.amazonaws.com/dev/events",
+					"protocol": "https",
+					"host": [
+						"{{appId}}",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"events"
+					]
+				},
+				"description": "CREATE EVENT"
+			},
+			"response": []
+		},
+		{
+			"name": "get event by game",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{appId}}.execute-api.us-east-1.amazonaws.com/dev/events?gameId={{game1}}",
+					"protocol": "https",
+					"host": [
+						"{{appId}}",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"events"
+					],
+					"query": [
+						{
+							"key": "gameId",
+							"value": "{{game1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get events from user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{appId}}.execute-api.us-east-1.amazonaws.com/dev/users/{{userId}}/events",
+					"protocol": "https",
+					"host": [
+						"{{appId}}",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"users",
+						"{{userId}}",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add comment to existing event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"message\": \"hola tio quiero jugar 2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{appId}}.execute-api.us-east-1.amazonaws.com/dev/events/{{eventId}}/comments",
+					"protocol": "https",
+					"host": [
+						"{{appId}}",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"events",
+						"{{eventId}}",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate image upload URL",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{appId}}.execute-api.us-east-1.amazonaws.com/dev/events/{{eventId}}/image",
+					"protocol": "https",
+					"host": [
+						"{{appId}}",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"events",
+						"{{eventId}}",
+						"image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update event",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"startTime\": \"Sat, 26 Apr 2020 15:50:55 GMT\",\n\t\"endTime\": \"Sat, 26 Apr 2020 16:50:55 GMT\",\n\t\"title\": \"updateeeeed - new - new\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{appId}}.execute-api.us-east-1.amazonaws.com/dev/events/{{eventId}}",
+					"protocol": "https",
+					"host": [
+						"{{appId}}",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"events",
+						"{{eventId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete event",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://{{appId}}.execute-api.us-east-1.amazonaws.com/dev/events/{{eventId}}",
+					"protocol": "https",
+					"host": [
+						"{{appId}}",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"events",
+						"{{eventId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{appId}}.execute-api.us-east-1.amazonaws.com/dev/games",
+					"protocol": "https",
+					"host": [
+						"{{appId}}",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post image to event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://{{appId}}.execute-api.us-east-1.amazonaws.com/dev/events/{{eventId}}/image",
+					"protocol": "https",
+					"host": [
+						"{{appId}}",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"events",
+						"{{eventId}}",
+						"image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get event by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{appId}}.execute-api.us-east-1.amazonaws.com/dev/events/{{eventId}}",
+					"protocol": "https",
+					"host": [
+						"{{appId}}",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"events",
+						"{{eventId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7402b05e-15f4-426c-bc8e-ce9c998bf7fc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8ef82dae-d1f5-49ed-9df8-74de0d100c28",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "878b2bee-f3f8-4731-9692-2a9b1c174116",
+			"key": "appId",
+			"value": "j7eaoztky4",
+			"type": "string"
+		},
+		{
+			"id": "b182ff60-4989-4dd5-a416-54d3fe6e6f06",
+			"key": "token",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImotYzVhQW1PTFI5b0RmZ1M4Sm9VViJ9.eyJnaXZlbl9uYW1lIjoiRWR1YXJkbyIsImZhbWlseV9uYW1lIjoiQWd1aWxhciBUaXJhZG8iLCJuaWNrbmFtZSI6ImVkdWFyZG9hZ3VpbGFydGlyYWRvIiwibmFtZSI6IkVkdWFyZG8gQWd1aWxhciBUaXJhZG8iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dyTVF6QUdxc2FkaE80M0YwYm1KTF9RT1VIQnEzcjlyNVJHeUYtZkEiLCJsb2NhbGUiOiJlcyIsInVwZGF0ZWRfYXQiOiIyMDIwLTA0LTI4VDA5OjIzOjQ5LjE0MFoiLCJlbWFpbCI6ImVkdWFyZG9hZ3VpbGFydGlyYWRvQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2Rldi0wdDU4NGhqNC5ldS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTAwMjQ1ODIzNTgxMzY3NTQzMzkiLCJhdWQiOiJWYlF4SHhkWlVnRnlUU3R4NXZoM3B0Qk1QSjdmY1V3SCIsImlhdCI6MTU4ODA2NTgyOSwiZXhwIjoxNTg4MTAxODI5LCJub25jZSI6ImFYQmtPRXRDYWtaT1dXZGlPRVJrWTBWUlQwSTJaREo1ZG5WTFYyZDJNbkpKWmt0eFdsWlBWa3hWWHc9PSJ9.fri5Via35S4K7uqGIzISHHN6uDJwITAtTLMc5Prpscg4Hs7i_Zf1pi1xY6bEQu_FcEV-zlpxaPZwuxtoyQUsABJOBMFNyJev0thcDmZgpxMox8GhcTRQtYP405wxPgVkUod0Ow-cWpu4_cidoVj_8A3MiXNKwwF-U5cswITyJezheOF-v62jQCdaOwXl2haHs90UwNonXOHw8fep1Cwz2vM08xIRUGPVRcEmKhFOTiYMdnvWJIe8LB6z6ekGGVKwtlmCsoxDLa3ft3HUXlgipfBi2CTQRxJlB-3aHrC_QRXgu00RxqWrsg-LIUzUJpBD9X6EQx0PeLb9zu7UqmIL4A",
+			"type": "string"
+		},
+		{
+			"id": "4621c3e6-aa59-4030-ba38-158c0800f2aa",
+			"key": "game1",
+			"value": "673955k6-c4cb-49ba-8687-e3942c6b3111",
+			"type": "string"
+		},
+		{
+			"id": "7b57cb1b-2a08-48a5-aeb3-81cf0d8cc857",
+			"key": "game2",
+			"value": "441668k6-c4cb-49ba-8687-e3942c6b3222",
+			"type": "string"
+		},
+		{
+			"id": "c9bf6a70-6689-47e6-8ce3-812666110076",
+			"key": "userId",
+			"value": "google-oauth2|110024582358136754339",
+			"type": "string"
+		},
+		{
+			"id": "61580019-ca94-4d37-98ee-8510780e6cb3",
+			"key": "eventId",
+			"value": "818db223-ca67-40f5-9c53-787775e6ea01",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
