@@ -25,3 +25,14 @@ And the app will be ready at http://localhost:8080/
 If you want to check all available REST API endpoints, there is a postman collection in the repo. Pay attention that some endpoints are privates, so you should use the frontend app, log in, and the jwt is printed to console.
 
 Enjoy!!
+
+
+### App pics
+#### Home
+![Imgur](https://i.imgur.com/7iDF4vm.png)
+#### Event detail
+![Imgur](https://i.imgur.com/RqcJfQl.png)
+#### Event edit
+![Imgur](https://i.imgur.com/teXYQmD.png)
+#### Other links
+[Imgur](https://i.imgur.com/tItmyko.png)
